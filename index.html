@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para ti en el Día de las Flores Amarillas 💛</title>
+    <!-- Google Fonts para tipografías elegantes -->
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #231035 0%, #3e1b50 50%, #6e2d5c 100%);
+            color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Partículas ambientales flotantes */
+        .ambient-particle {
+            position: absolute;
+            background: #ffeb7a;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.6;
+            animation: floatAmbient linear infinite;
+        }
+
+        @keyframes floatAmbient {
+            0% { transform: translateY(105vh) translateX(0); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-10vh) translateX(30px); opacity: 0; }
+        }
+
+        /* Pantalla de Inicio */
+        .welcome-screen {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            max-width: 600px;
+            width: 90%;
+            background: rgba(30, 12, 45, 0.75);
+            backdrop-filter: blur(14px);
+            padding: 45px 30px;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(254, 240, 138, 0.3);
+            transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .welcome-screen.fade-out {
+            opacity: 0;
+            transform: scale(0.9) translateY(-20px);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: 2.1rem;
+            color: #fde047;
+            margin-bottom: 12px;
+            font-weight: 600;
+            text-shadow: 0 2px 10px rgba(253, 224, 71, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Girasol de Bienvenida */
+        .welcome-flower-wrap {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 30px auto;
+            cursor: pointer;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: pulseFlower 2.5s ease-in-out infinite alternate;
+        }
+
+        .welcome-flower-wrap:hover {
+            transform: scale(1.12);
+        }
+
+        @keyframes pulseFlower {
+            0% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(253,224,71,0.4)); }
+            100% { transform: scale(1.06); filter: drop-shadow(0 0 20px rgba(253,224,71,0.7)); }
+        }
+
+        /* Botón de Entrada */
+        .entry-btn {
+            font-size: 1.15rem;
+            color: #1a0a2a;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, #fef08a 0%, #facc15 50%, #ca8a04 100%);
+            border: none;
+            border-radius: 50px;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(250, 204, 21, 0.4);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .entry-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(250, 204, 21, 0.6);
+            background: linear-gradient(135deg, #fef9c3 0%, #fde047 50%, #eab308 100%);
+        }
+
+        /* Paisaje de Atardecer (Paraíso) */
+        .sunset-paradise {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.8s ease;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .sunset-paradise.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Cielo con degradado perfecto */
+        .sky-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 65%;
+            background: linear-gradient(180deg, #1d092c 0%, #361448 30%, #682956 60%, #aa4b47 82%, #e58735 100%);
+            z-index: 1;
+        }
+
+        /* SOL PERFECTO: Círculo completo y resplandor difuminado, sin cajas cuadradas */
+        .true-sun {
+            position: absolute;
+            bottom: 35%; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 240px;
+            height: 240px;
+            background: radial-gradient(circle, #fffbe6 0%, #ffeb7a 30%, #ffaa22 65%, rgba(245, 120, 20, 0.15) 85%, transparent 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 90px rgba(255, 210, 80, 0.85), 0 0 180px rgba(255, 130, 20, 0.45);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Suelo / Campo con perspectiva */
+        .horizon-ground {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            background: linear-gradient(to bottom, #441c11 0%, #2b0f09 50%, #150604 100%);
+            z-index: 3;
+            box-shadow: inset 0 25px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .pathway {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 130px;
+            height: 100%;
+            background: linear-gradient(to top, #2e1008 0%, rgba(46, 16, 8, 0) 100%);
+            clip-path: polygon(32% 100%, 68% 100%, 53% 0%, 47% 0%);
+            z-index: 4;
+        }
+
+        /* Campo de Girasoles en el fondo */
+        .sunflowers-field {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .sunset-sunflower {
+            position: absolute;
+            transform-origin: bottom center;
+            animation: gentleSway 4.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentleSway {
+            0% { transform: rotate(-2.5deg) scale(var(--s, 1)); }
+            100% { transform: rotate(2.5deg) scale(var(--s, 1)); }
+        }
+
+        /* Capa de la Carta (Modal Automático a los 3 segundos) */
+        .card-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(15, 5, 25, 0.75);
+            backdrop-filter: blur(8px);
+            z-index: 25;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        .card-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .letter-card {
+            background: linear-gradient(135deg, #fffbeb 0%, #fef3c7 100%);
+            color: #3b1c0c;
+            width: 90%;
+            max-width: 500px;
+            padding: 40px 35px;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5), inset 0 0 20px rgba(251, 191, 36, 0.3);
+            text-align: center;
+            position: relative;
+            transform: scale(0.8) translateY(30px);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 2px solid #f59e0b;
+        }
+
+        .card-overlay.show .letter-card {
+            transform: scale(1) translateY(0);
+        }
+
+        .letter-card h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 3rem;
+            color: #b45309;
+            margin-bottom: 15px;
+        }
+
+        .letter-card p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 25px;
+            color: #78350f;
+            font-weight: 400;
+        }
+
+        .date-badge {
+            display: inline-block;
+            background: #d97706;
+            color: #fff;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(217, 119, 6, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(217, 119, 6, 0.6);
+            background: linear-gradient(135deg, #fbbf24 0%, #b45309 100%);
+        }
+
+        /* Pantalla del Ramo de Girasoles Espectacular */
+        .bouquet-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at center, #3c1348 0%, #170822 100%);
+            z-index: 30;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 1.2s ease;
+        }
+
+        .bouquet-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .bouquet-container {
+            position: relative;
+            width: 360px;
+            height: 420px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: floatBouquet 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatBouquet {
+            0% { transform: translateY(0px) rotate(-1deg); }
+            100% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        /* Posicionamiento milimétrico del Ramo con relleno completo de espacios */
+        .b-flower {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
+        }
+
+        /* Fila Superior / Central */
+        .b-f1 { top: 10px; left: 130px; z-index: 10; transform: scale(1.1); }
+        
+        /* Fila Media-Alta */
+        .b-f2 { top: 60px; left: 55px; z-index: 9; transform: rotate(-15deg) scale(1.05); }
+        .b-f3 { top: 60px; right: 55px; z-index: 9; transform: rotate(15deg) scale(1.05); }
+
+        /* Relleno de espacios intermedios (Nuevos para evitar huecos) */
+        .b-f-fill1 { top: 85px; left: 130px; z-index: 9; transform: scale(0.95); }
+        .b-f-fill2 { top: 110px; left: 90px; z-index: 8; transform: rotate(-8deg) scale(0.95); }
+        .b-f-fill3 { top: 110px; right: 90px; z-index: 8; transform: rotate(8deg) scale(0.95); }
+
+        /* Fila Media */
+        .b-f4 { top: 135px; left: 15px; z-index: 7; transform: rotate(-30deg) scale(1.0); }
+        .b-f5 { top: 135px; right: 15px; z-index: 7; transform: rotate(30deg) scale(1.0); }
+
+        /* Fila Inferior (Base del ramo) */
+        .b-f6 { top: 185px; left: 60px; z-index: 6; transform: rotate(-18deg) scale(0.9); }
+        .b-f7 { top: 185px; right: 60px; z-index: 6; transform: rotate(18deg) scale(0.9); }
+
+        /* Envoltorio del Ramo (Papel kraft y lazo elegante) */
+        .bouquet-wrap {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 190px;
+            height: 150px;
+            background: linear-gradient(135deg, #d97706 0%, #92400e 100%);
+            clip-path: polygon(20% 0%, 80% 0%, 100% 100%, 0% 100%);
+            z-index: 12;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            border-bottom: 5px solid #78350f;
+        }
+
+        .bouquet-ribbon {
+            position: absolute;
+            bottom: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 30px;
+            background: #fde047;
+            border-radius: 15px;
+            z-index: 15;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .bouquet-ribbon::before, .bouquet-ribbon::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            width: 20px;
+            height: 30px;
+            background: #facc15;
+            z-index: 14;
+        }
+        .bouquet-ribbon::before { left: 10px; transform: rotate(-15deg); }
+        .bouquet-ribbon::after { right: 10px; transform: rotate(15deg); }
+
+        /* Firma elegante final dentro del ramo */
+        .bouquet-signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.7rem;
+            color: #fde047;
+            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.8);
+            margin-top: 25px;
+            letter-spacing: 1px;
+            animation: fadeInSig 1.5s ease 0.5s both;
+        }
+
+        @keyframes fadeInSig {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Partículas flotantes en el paraíso */
+        .paradise-particle {
+            position: absolute;
+            background: #ffe066;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.7;
+            animation: floatParticle linear infinite;
+            z-index: 6;
+        }
+
+        @keyframes floatParticle {
+            0% { transform: translateY(0px) translateX(0px); opacity: 0; }
+            40% { opacity: 0.85; }
+            100% { transform: translateY(-140px) translateX(40px); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Partículas ambientales iniciales -->
+    <div id="ambientParticles"></div>
+
+    <!-- Pantalla de Inicio -->
+    <div class="welcome-screen" id="welcomeScreen">
+        <h1>¡Feliz Día de las Flores Amarillas! 💛</h1>
+        <div class="subtitle">Una sorpresa creada especialmente para ti</div>
+
+        <!-- Girasol de Bienvenida -->
+        <div class="welcome-flower-wrap" onclick="enterParadise()">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <g fill="url(#petalGradWelcome)">
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(0 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(22.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(45 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(67.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(90 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(112.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(135 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(157.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(180 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(202.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(225 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(247.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(270 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(292.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(315 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(337.5 50 50)"/>
+                </g>
+                <circle cx="50" cy="50" r="21" fill="#361505"/>
+                <circle cx="50" cy="50" r="17" fill="#5c2c0c"/>
+                <circle cx="50" cy="50" r="12" fill="#361505"/>
+                <ellipse cx="43" cy="43" rx="3.5" ry="1.8" fill="rgba(255,255,255,0.25)" transform="rotate(-30 43 43)"/>
+                <circle cx="45" cy="46" r="1.2" fill="#facc15"/>
+                <circle cx="53" cy="48" r="1.2" fill="#facc15"/>
+                <circle cx="48" cy="53" r="1.2" fill="#facc15"/>
+                <circle cx="54" cy="54" r="1.2" fill="#facc15"/>
+                
+                <defs>
+                    <linearGradient id="petalGradWelcome" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fff176"/>
+                        <stop offset="45%" stop-color="#facc15"/>
+                        <stop offset="100%" stop-color="#d97706"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        </div>
+
+        <div>
+            <button class="entry-btn" onclick="enterParadise()">Da clic para entrar a este paraíso</button>
+        </div>
+    </div>
+
+    <!-- Paisaje de Atardecer (Paraíso) -->
+    <div class="sunset-paradise" id="sunsetParadise">
+        <div class="sky-bg"></div>
+        <div class="true-sun"></div>
+        <div class="horizon-ground">
+            <div class="pathway"></div>
+        </div>
+        <div class="sunflowers-field" id="sunflowersField"></div>
+        <div id="paradiseParticles"></div>
+    </div>
+
+    <!-- Carta Automática a los 3 segundos -->
+    <div class="card-overlay" id="cardOverlay">
+        <div class="letter-card">
+            <span class="date-badge">21 DE SEPTIEMBRE</span>
+            <h2>Flores Amarillas</h2>
+            <p>Hoy en este día tan especial, quiero regalarte estas flores amarillas como símbolo de todo el cariño, la alegría y la luz que iluminan mi vida cada día. Eres una persona maravillosa y este detalle es para recordarte lo mucho que significas para mí.</p>
+            <button class="next-btn" onclick="showBouquet()">Avanzar 💛</button>
+        </div>
+    </div>
+
+    <!-- Pantalla del Ramo de Girasoles Exquisito -->
+    <div class="bouquet-overlay" id="bouquetOverlay">
+        <div class="bouquet-container" id="bouquetContainer">
+            <!-- El envoltorio del ramo -->
+            <div class="bouquet-wrap"></div>
+            <div class="bouquet-ribbon"></div>
+
+            <!-- Girasoles ordenados meticulosamente cubriendo todos los espacios -->
+            <!-- Centro Superior -->
+            <div class="b-flower b-f1"></div>
+            <!-- Fila Media-Alta -->
+            <div class="b-flower b-f2"></div>
+            <div class="b-flower b-f3"></div>
+            <!-- Relleno de espacios centrales -->
+            <div class="b-flower b-f-fill1"></div>
+            <div class="b-flower b-f-fill2"></div>
+            <div class="b-flower b-f-fill3"></div>
+            <!-- Fila Media -->
+            <div class="b-flower b-f4"></div>
+            <div class="b-flower b-f5"></div>
+            <!-- Fila Inferior Base -->
+            <div class="b-flower b-f6"></div>
+            <div class="b-flower b-f7"></div>
+        </div>
+        <div class="bouquet-signature">ATT: Javier R.</div>
+    </div>
+
+    <script>
+        // SVG Plantilla reutilizable para los girasoles del ramo
+        const sunflowerSvgHTML = `
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+                <g fill="url(#petalGradBouquet)">
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(0 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(22.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(45 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(67.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(90 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(112.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(135 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(157.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(180 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(202.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(225 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(247.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(270 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(292.5 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(315 50 50)"/>
+                    <path d="M50 3 Q60 22 50 50 Q40 22 50 3" transform="rotate(337.5 50 50)"/>
+                </g>
+                <circle cx="50" cy="50" r="21" fill="#291004"/>
+                <circle cx="50" cy="50" r="16" fill="#4a1e08"/>
+                <circle cx="50" cy="50" r="11" fill="#291004"/>
+                <ellipse cx="43" cy="43" rx="3.5" ry="1.8" fill="rgba(255,255,255,0.25)" transform="rotate(-30 43 43)"/>
+                <circle cx="45" cy="46" r="1.2" fill="#facc15"/>
+                <circle cx="53" cy="48" r="1.2" fill="#facc15"/>
+                <circle cx="48" cy="53" r="1.2" fill="#facc15"/>
+                <defs>
+                    <linearGradient id="petalGradBouquet" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#fff176"/>
+                        <stop offset="45%" stop-color="#facc15"/>
+                        <stop offset="100%" stop-color="#b45309"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+        `;
+
+        // Inyectar el SVG en cada girasol del ramo
+        document.querySelectorAll('.b-flower').forEach(el => {
+            el.innerHTML = sunflowerSvgHTML;
+        });
+
+        // Partículas ambientales iniciales
+        const ambientContainer = document.getElementById('ambientParticles');
+        for (let i = 0; i < 20; i++) {
+            const p = document.createElement('div');
+            p.classList.add('ambient-particle');
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.bottom = -10 + 'vh';
+            const size = Math.random() * 6 + 4;
+            p.style.width = size + 'px';
+            p.style.height = size + 'px';
+            p.style.animationDuration = (Math.random() * 4 + 4) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            ambientContainer.appendChild(p);
+        }
+
+        let entered = false;
+
+        function enterParadise() {
+            if (entered) return;
+            entered = true;
+
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const sunsetParadise = document.getElementById('sunsetParadise');
+            const cardOverlay = document.getElementById('cardOverlay');
+
+            welcomeScreen.classList.add('fade-out');
+
+            setTimeout(() => {
+                welcomeScreen.style.display = 'none';
+                sunsetParadise.classList.add('active');
+                generateSunsetSunflowers();
+                generateParadiseParticles();
+
+                // Mostrar la carta automáticamente después de 3 segundos
+                setTimeout(() => {
+                    cardOverlay.classList.add('show');
+                }, 3000);
+            }, 800);
+        }
+
+        function showBouquet() {
+            const cardOverlay = document.getElementById('cardOverlay');
+            const bouquetOverlay = document.getElementById('bouquetOverlay');
+
+            cardOverlay.style.opacity = '0';
+            setTimeout(() => {
+                cardOverlay.style.display = 'none';
+                bouquetOverlay.classList.add('show');
+            }, 600);
+        }
+
+        // Generar campo de girasoles en el paisaje de fondo
+        function generateSunsetSunflowers() {
+            const field = document.getElementById('sunflowersField');
+            const configs = [
+                { left: '1%', bottom: '1%', scale: 1.35, zIndex: 14, delay: '0s' },
+                { left: '7%', bottom: '8%', scale: 1.05, zIndex: 11, delay: '0.3s' },
+                { left: '14%', bottom: '3%', scale: 1.2, zIndex: 12, delay: '0.1s' },
+                { left: '21%', bottom: '12%', scale: 1.45, zIndex: 15, delay: '0.4s' },
+                { left: '4%', bottom: '18%', scale: 0.75, zIndex: 8, delay: '0.2s' },
+                { left: '17%', bottom: '22%', scale: 0.85, zIndex: 9, delay: '0.5s' },
+                { left: '26%', bottom: '6%', scale: 0.95, zIndex: 10, delay: '0.2s' },
+                { left: '33%', bottom: '15%', scale: 0.55, zIndex: 7, delay: '0.4s' },
+                { left: '56%', bottom: '10%', scale: 0.6, zIndex: 7, delay: '0.3s' },
+                { left: '60%', bottom: '3%', scale: 0.85, zIndex: 9, delay: '0.1s' },
+                { left: '64%', bottom: '17%', scale: 1.0, zIndex: 11, delay: '0.5s' },
+                { left: '70%', bottom: '6%', scale: 1.3, zIndex: 13, delay: '0.2s' },
+                { left: '76%', bottom: '14%', scale: 0.9, zIndex: 10, delay: '0.4s' },
+                { left: '82%', bottom: '2%', scale: 1.4, zIndex: 15, delay: '0.1s' },
+                { left: '90%', bottom: '12%', scale: 1.15, zIndex: 12, delay: '0.3s' },
+                { left: '95%', bottom: '1%', scale: 0.8, zIndex: 8, delay: '0.6s' }
+            ];
+
+            configs.forEach(cfg => {
+                const wrap = document.createElement('div');
+                wrap.classList.add('sunset-sunflower');
+                wrap.style.left = cfg.left;
+                wrap.style.bottom = cfg.bottom;
+                wrap.style.zIndex = cfg.zIndex;
+                wrap.style.setProperty('--s', cfg.scale);
+                wrap.style.animationDelay = cfg.delay;
+                wrap.style.width = '130px';
+                wrap.style.height = '200px';
+
+                wrap.innerHTML = `
+                    <svg viewBox="0 0 100 160" width="100%" height="100%">
+                        <path d="M50 65 L50 160" stroke="#18421c" stroke-width="8" stroke-linecap="round"/>
+                        <path d="M50 110 C32 100 20 116 27 128 C35 134 43 120 50 115 Z" fill="#1e5124"/>
+                        <path d="M50 90 C68 80 80 96 73 108 C65 114 57 100 50 95 Z" fill="#18421c"/>
+                        <g transform="translate(0, 0)">
+                            <g fill="url(#petalGradSunset)">
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(0 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(22.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(45 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(67.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(90 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(112.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(135 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(157.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(180 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(202.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(225 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(247.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(270 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(292.5 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(315 50 32)"/>
+                                <path d="M50 2 Q63 25 50 56 Q37 25 50 2" transform="rotate(337.5 50 32)"/>
+                            </g>
+                            <circle cx="50" cy="32" r="17" fill="#291004"/>
+                            <circle cx="50" cy="32" r="13" fill="#4a1e08"/>
+                            <circle cx="50" cy="32" r="9" fill="#291004"/>
+                            <ellipse cx="44" cy="27" rx="3" ry="1.5" fill="rgba(255,255,255,0.22)" transform="rotate(-30 44 27)"/>
+                            <circle cx="47" cy="30" r="0.9" fill="#facc15"/>
+                            <circle cx="52" cy="31" r="0.9" fill="#facc15"/>
+                            <circle cx="49" cy="34" r="0.9" fill="#facc15"/>
+                        </g>
+                        <defs>
+                            <linearGradient id="petalGradSunset" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="#fff176"/>
+                                <stop offset="40%" stop-color="#ffcc00"/>
+                                <stop offset="100%" stop-color="#d97706"/>
+                            </linearGradient>
+                        </defs>
+                    </svg>
+                `;
+                field.appendChild(wrap);
+            });
+        }
+
+        // Partículas flotantes de luz en el atardecer
+        function generateParadiseParticles() {
+            const container = document.getElementById('paradiseParticles');
+            for (let i = 0; i < 35; i++) {
+                const p = document.createElement('div');
+                p.classList.add('paradise-particle');
+                p.style.left = Math.random() * 100 + 'vw';
+                p.style.bottom = (Math.random() * 32) + 'vh';
+                const size = Math.random() * 5 + 3;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+                p.style.animationDuration = (Math.random() * 4 + 3) + 's';
+                p.style.animationDelay = (Math.random() * 5) + 's';
+                container.appendChild(p);
+            }
+        }
+    </script>
+</body>
+</html>
